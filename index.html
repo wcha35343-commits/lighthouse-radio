@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>东海·灯塔广播站 · 本站在线收听</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Serif+Display&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c9402f;
+  --yellow:#e6a92c;
+  --blue:#26478f;
+  --purple:#7a3f8c;
+  --olive:#6c7636;
+  --teal:#1f7a6b;
+  --paper:#e9dcbe;
+  --paper2:#f4ecd8;
+  --ink:#221a13;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Serif SC","Songti SC","SimSun",serif;
+  font-size:15px;line-height:1.85;overflow-x:hidden;position:relative;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;
+  background-image:
+    repeating-linear-gradient(0deg,rgba(120,90,40,.045) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(90deg,rgba(120,90,40,.035) 0 1px,transparent 1px 4px);
+  mix-blend-mode:multiply;opacity:.9;
+}
+.mono{font-family:"Space Mono","Courier New",monospace;}
+.deco{font-family:"Bungee","DM Serif Display",serif;letter-spacing:.02em;}
+.serif-en{font-family:"DM Serif Display",Georgia,serif;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 14px 90px;}
+
+/* ===== 顶部 撞色拼贴 ===== */
+header.top{position:relative;padding:26px 0 8px;min-height:158px;}
+.brand{
+  position:relative;z-index:3;display:inline-block;
+  background:var(--blue);color:#fff;padding:10px 16px 12px;
+  transform:rotate(-2.2deg);box-shadow:6px 6px 0 var(--red);border:2px solid var(--ink);
+}
+.brand h1{margin:0;font-size:26px;line-height:1.06;font-family:"DM Serif Display","Noto Serif SC",serif;letter-spacing:.06em;}
+.brand .sub{display:block;margin-top:5px;font-size:10px;letter-spacing:.3em;font-family:"Space Mono",monospace;opacity:.94;}
+.dot{position:absolute;border:2px solid var(--ink);z-index:1;}
+.d1{width:58px;height:58px;background:var(--yellow);border-radius:50%;top:12px;right:12px;transform:rotate(8deg);}
+.d2{width:34px;height:72px;background:var(--red);top:74px;right:66px;transform:rotate(-14deg);}
+.d3{width:84px;height:18px;top:120px;right:8px;transform:rotate(5deg);
+  background:repeating-linear-gradient(90deg,var(--red) 0 8px,var(--paper2) 8px 16px);}
+.d4{width:26px;height:26px;background:var(--purple);border-radius:50%;top:6px;left:46%;}
+.bars{position:absolute;z-index:1;bottom:6px;left:8px;display:flex;align-items:flex-end;gap:3px;height:34px;opacity:.7;}
+.bars i{width:5px;background:var(--teal);border:1px solid var(--ink);display:block;}
+
+/* ===== 检索 ===== */
+.searcher{position:relative;z-index:5;margin-top:20px;background:var(--teal);border:2px solid var(--ink);
+  padding:12px 12px 14px;transform:rotate(.5deg);box-shadow:5px 5px 0 var(--yellow);}
+.searcher label{display:block;color:#fff;font-size:11px;letter-spacing:.2em;font-family:"Space Mono",monospace;margin-bottom:7px;}
+.srow{display:flex;gap:8px;}
+.srow input{flex:1;min-width:0;border:2px solid var(--ink);background:var(--paper2);padding:10px 11px;
+  font-size:15px;font-family:"Noto Serif SC",serif;color:var(--ink);border-radius:0;outline:none;}
+.srow input:focus{background:#fff;box-shadow:inset 0 0 0 2px var(--yellow);}
+.srow button{border:2px solid var(--ink);background:var(--red);color:#fff;
+  font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.14em;padding:10px 16px;cursor:pointer;border-radius:0;}
+.srow button:active{transform:translate(1px,1px);}
+.msg{margin-top:8px;font-size:13px;min-height:20px;font-family:"Space Mono",monospace;color:#ffe9a8;}
+.msg.bad{color:#ffd0c8;}
+
+/* ===== 通用区块 ===== */
+.section{margin-top:26px;position:relative;}
+.tag{display:inline-block;background:var(--ink);color:var(--paper2);
+  font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.22em;padding:3px 10px;}
+.board{background:var(--yellow);border:2px solid var(--ink);padding:16px;margin-top:8px;
+  transform:rotate(-.6deg);box-shadow:6px 6px 0 rgba(38,71,143,.85);}
+.board p{margin:0 0 10px;}
+.board p:last-child{margin-bottom:0;}
+.hl{background:rgba(201,64,47,.24);padding:0 3px;}
+.intro{background:var(--paper2);border:2px dashed var(--ink);padding:16px;margin-top:8px;}
+.intro .who{font-family:"DM Serif Display",serif;font-size:19px;margin:0 0 8px;color:var(--blue);}
+
+/* ===== 在线收听（电波示意） ===== */
+.listen{background:var(--purple);color:#f6ead2;border:2px solid var(--ink);padding:15px;margin-top:8px;
+  transform:rotate(.7deg);box-shadow:6px 6px 0 var(--red);}
+.listen .lrow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.listen .tag2{font-family:"DM Serif Display",serif;font-size:15px;letter-spacing:.06em;color:#ffd98a;}
+.listen .tag2 span{display:block;font-family:"Space Mono",monospace;font-size:10.5px;color:#e7d7be;letter-spacing:.14em;margin-top:3px;}
+.btn-play{border:2px solid var(--ink);background:var(--yellow);color:var(--ink);
+  font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;padding:8px 13px;cursor:pointer;border-radius:0;}
+.btn-play:active{transform:translate(1px,1px);}
+.waveform{margin-top:14px;display:flex;align-items:flex-end;gap:3px;height:44px;}
+.waveform i{flex:1;background:var(--yellow);height:14%;opacity:.85;transform-origin:bottom center;animation-play-state:paused;}
+.listen.live .waveform i{animation-play-state:running;}
+@keyframes breathe{0%,100%{height:14%}50%{height:92%}}
+.ticker{margin-top:12px;font-family:"Space Mono",monospace;font-size:14px;letter-spacing:.3em;color:#ffe9a8;
+  white-space:nowrap;overflow:hidden;border-top:1px dashed rgba(255,255,255,.35);padding-top:8px;}
+.meter{margin-top:8px;display:flex;align-items:center;gap:10px;font-family:"Space Mono",monospace;font-size:10px;color:#e7d7be;letter-spacing:.1em;}
+.meter .bar{flex:1;height:6px;background:rgba(0,0,0,.25);border:1px solid var(--ink);position:relative;}
+.meter .bar::after{content:"";position:absolute;inset:0;width:20%;
+  background:repeating-linear-gradient(90deg,var(--yellow) 0 3px,transparent 3px 5px);}
+.listen.live .meter .bar::after{animation:sweep 3.2s linear infinite;}
+@keyframes sweep{0%{width:8%}50%{width:80%}100%{width:8%}}
+
+/* ===== 表格 ===== */
+table.ledger{width:100%;border-collapse:collapse;font-family:"Space Mono",monospace;font-size:11.5px;margin:12px 0;}
+table.ledger th,table.ledger td{border:1px solid #a4906a;padding:6px 7px;text-align:left;}
+table.ledger th{background:var(--yellow);font-weight:normal;}
+table.ledger tr:nth-child(even) td{background:rgba(233,220,190,.6);}
+
+/* ===== 天气 ===== */
+.wx{background:var(--paper2);border:2px solid var(--ink);padding:15px;margin-top:8px;box-shadow:5px 5px 0 rgba(108,118,54,.9);}
+.wx .now{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.wx .deg{font-family:"Space Mono",monospace;font-size:34px;letter-spacing:-.02em;}
+.wx .desc{font-family:"DM Serif Display",serif;font-size:15px;color:var(--ink);}
+.wx dl{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:13px;}
+.wx dt{font-family:"Space Mono",monospace;font-size:11px;color:#6b5c40;letter-spacing:.1em;}
+
+/* ===== 联系方式 ===== */
+.contact{background:var(--olive);color:#f6ead2;border:2px solid var(--ink);padding:15px;margin-top:8px;
+  transform:rotate(-.6deg);font-family:"Space Mono",monospace;font-size:12.5px;line-height:2;}
+.contact b{color:#ffd98a;font-weight:normal;}
+
+/* ===== 页脚 ===== */
+footer{margin-top:40px;border-top:3px double var(--ink);padding-top:14px;font-size:11.5px;color:#57492f;}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;}
+footer .mono{font-size:11px;}
+
+/* ===== 隐藏页 ===== */
+.page{display:none;}
+.page.on{display:block;animation:fade .34s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.doc{background:var(--paper2);border:2px solid var(--ink);margin-top:22px;position:relative;box-shadow:8px 8px 0 var(--purple);}
+.doc-bar{background:var(--ink);color:var(--yellow);font-family:"Space Mono",monospace;font-size:11px;
+  letter-spacing:.2em;padding:6px 12px;display:flex;justify-content:space-between;gap:8px;}
+.doc-body{padding:16px 16px 20px;}
+.doc h2{font-family:"DM Serif Display","Noto Serif SC",serif;font-size:23px;margin:0 0 4px;color:var(--red);line-height:1.25;}
+.doc .rule{display:inline-block;width:52px;height:5px;background:var(--blue);margin:2px 0 14px;}
+.doc p{margin:0 0 12px;}
+.note{border-left:6px solid var(--olive);background:rgba(108,118,54,.12);padding:10px 12px;margin:14px 0;}
+.note.blue{border-color:var(--blue);background:rgba(38,71,143,.1);}
+.note.red{border-color:var(--red);background:rgba(201,64,47,.1);}
+.paperclip{display:inline-block;background:var(--red);color:#fff;font-family:"Space Mono",monospace;
+  font-size:12px;padding:2px 8px;transform:rotate(-2deg);margin:0 4px 8px 0;}
+.void{font-family:"Space Mono",monospace;color:#7a6a4a;position:relative;}
+.void::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:1px;background:#7a6a4a;}
+.morse{font-family:"Space Mono",monospace;font-size:19px;letter-spacing:.34em;background:var(--ink);color:var(--yellow);
+  padding:14px 12px;margin:14px 0;word-break:break-all;text-align:center;border:2px solid var(--ink);}
+.legend{font-family:"Space Mono",monospace;font-size:11px;color:#6b5c40;margin:-6px 0 14px;letter-spacing:.06em;}
+.pagetag{margin-top:18px;text-align:right;font-family:"Bungee",monospace;font-size:13px;letter-spacing:.16em;color:var(--purple);}
+.backbtn{display:inline-block;margin-top:14px;border:2px solid var(--ink);background:var(--olive);color:#fff;
+  font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.14em;padding:8px 14px;cursor:pointer;border-radius:0;}
+.backbtn:active{transform:translate(1px,1px);}
+.bignum{display:inline-block;background:var(--blue);color:#fff;font-family:"Bungee",monospace;font-size:20px;
+  padding:2px 10px;transform:rotate(-1.5deg);margin:0 4px;}
+
+/* ===== 编号门 ===== */
+.gate{border:2px dashed var(--red);background:#fff;padding:14px;margin:16px 0 8px;}
+.gate label{display:block;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.12em;color:var(--red);margin-bottom:8px;}
+.gate .ghint{font-size:12px;color:#7a6a4a;margin-top:8px;font-family:"Space Mono",monospace;line-height:1.7;}
+.gate .gmsg{margin-top:8px;font-size:13px;font-family:"Space Mono",monospace;min-height:18px;color:var(--olive);}
+.gate .gmsg.bad{color:var(--red);}
+.locked-tag{display:inline-block;background:var(--red);color:#fff;font-family:"Space Mono",monospace;
+  font-size:10px;letter-spacing:.15em;padding:2px 7px;transform:rotate(-1.5deg);}
+
+/* ===== 记录本 ===== */
+.nbtab{position:fixed;right:10px;bottom:12px;z-index:1000;background:var(--yellow);color:var(--ink);
+  border:2px solid var(--ink);font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;
+  padding:9px 12px;cursor:pointer;border-radius:0;transform:rotate(-1.6deg);box-shadow:4px 4px 0 var(--red);}
+.nbtab:active{transform:translate(1px,1px) rotate(-1.6deg);}
+.nbtab b{font-family:"Bungee",monospace;font-weight:normal;}
+.nbpanel{position:fixed;inset:auto 0 0 0;z-index:1001;max-height:78vh;overflow-y:auto;background:var(--paper2);
+  border-top:3px solid var(--ink);box-shadow:0 -8px 0 rgba(38,71,143,.5);transform:translateY(105%);
+  transition:transform .28s ease;padding:16px 16px 26px;}
+.nbpanel.open{transform:none;}
+.nbhead{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:3px double var(--ink);padding-bottom:8px;margin-bottom:12px;}
+.nbhead h3{margin:0;font-family:"DM Serif Display",serif;font-size:20px;color:var(--red);}
+.nbhead .cls{border:2px solid var(--ink);background:var(--red);color:#fff;font-family:"Space Mono",monospace;
+  font-size:12px;padding:5px 10px;cursor:pointer;border-radius:0;}
+.nbcols{display:grid;grid-template-columns:1fr;gap:16px;}
+.nbcol h4{margin:0 0 8px;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.16em;color:var(--blue);
+  background:rgba(38,71,143,.12);padding:3px 8px;display:inline-block;}
+.nblist{list-style:none;margin:0;padding:0;}
+.nblist li{font-size:13px;padding:5px 0;border-bottom:1px dashed #b9a877;display:flex;justify-content:space-between;gap:10px;}
+.nblist li .num{font-family:"Space Mono",monospace;font-size:11px;color:var(--purple);}
+.nbkill{margin-top:16px;border:2px solid var(--ink);background:var(--paper);font-family:"Space Mono",monospace;
+  font-size:11.5px;color:var(--ink);padding:7px 12px;cursor:pointer;border-radius:0;}
+.nboverlay{position:fixed;inset:0;background:rgba(34,26,19,.42);z-index:1000;display:none;}
+.nboverlay.on{display:block;}
+
+@media (min-width:820px){
+  body{font-size:16px;}
+  .wrap{max-width:880px;padding:0 24px 90px;}
+  header.top{min-height:180px;padding-top:36px;}
+  .brand h1{font-size:40px;}
+  .d1{width:80px;height:80px;right:60px;}
+  .d2{width:46px;height:98px;top:90px;right:132px;}
+  .d3{width:126px;height:20px;top:152px;right:30px;}
+  .searcher{padding:16px 18px 18px;max-width:660px;}
+  .two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start;}
+  .doc h2{font-size:28px;}
+  .doc-body{padding:24px 28px 30px;}
+  .nbpanel{inset:auto 20px 20px auto;width:520px;border:2px solid var(--ink);box-shadow:9px 9px 0 var(--red);max-height:72vh;border-radius:0;}
+  .nbcols{grid-template-columns:1fr 1fr;}
+  .nboverlay{display:none !important;}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="dot d1"></div>
+    <div class="dot d2"></div>
+    <div class="dot d3"></div>
+    <div class="dot d4"></div>
+    <div class="bars" id="bars"></div>
+    <div class="brand">
+      <h1>东海·灯塔广播站</h1>
+      <span class="sub">DONGHAI LIGHTHOUSE BC · EST.1998</span>
+    </div>
+  </header>
+
+  <div class="searcher">
+    <label>站内检索 / SEARCH</label>
+    <div class="srow">
+      <input id="q" type="text" placeholder="输入你想查的内容……" autocomplete="off">
+      <button id="go">检索</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <!-- ================= 首页 ================= -->
+  <div class="page on" id="home">
+    <div class="section">
+      <span class="tag">关于本站</span>
+      <div class="intro">
+        <p class="who">你在找一段信号。</p>
+        <p>深夜里，你把收音机调到那个没人再提起的波段，听到了一段很短的声音——循环往复，像是有人忘了关掉发射机。你顺着这个波段查下去，翻到了这个早已没人维护的页面。灯还亮着，只是很久没有人更新了。</p>
+        <p>这里是「东海·<strong>灯塔广播站</strong>」的官网，一个给海上渔民和岛上居民播报气象的乡镇广播站。它建在灯塔嘴，1998 年开播，后来停了。</p>
+        <p>本站没有菜单，也没有目录。你能查的东西不多：公告、节目表、一段收听信号，还有那些藏在页面里的东西。<strong>只要在检索框里输入对的词，本站就会翻开一页没写在门户上的内容。</strong>至于那个词是什么，没人会告诉你。</p>
+        <p style="font-size:12.5px;color:#5a4b35;">（提示：这里的每一页，都可能藏着下一个词。读完再想，别指望它自己跳出来。）</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="tag">本站在线收听 · 频率保留中</span>
+      <div class="listen" id="listen">
+        <div class="lrow">
+          <div class="tag2">本站在线收听<span id="freqLine">—— MHz · 呼号待定</span></div>
+          <button class="btn-play" id="playBtn">▶ 开始收听</button>
+        </div>
+        <div class="waveform" id="wave"></div>
+        <div class="ticker" id="ticker">· — ·· — ··· — · — ·· —· — ·· —·— ·— ·· — </div>
+        <div class="meter"><span>电平</span><div class="bar"></div><span id="meterNum">-∞ dB</span></div>
+      </div>
+      <p style="font-size:12px;color:#5a4b35;margin-top:10px;">（信号只作示意，本站不提供音频。设备封存多年，频率仍被保留。）</p>
+    </div>
+
+    <div class="section">
+      <span class="tag">公告栏</span>
+      <div class="board">
+        <p>· 本站自 <span class="hl">2009</span> 年台风季后停止常规播出，此后设备封存、频率保留，无人值守。感谢乡亲多年的收听。—— 东海乡文化站 代管</p>
+        <p>· 旧灯塔顶层天线已停用，无关人员请勿上塔。值班室与机房钥匙由乡里代管，登记在册。</p>
+        <p>· 台风季加密播报早已取消，历年播出稿、值机表、点播登记等资料，仍按年份归档。</p>
+        <p>· 本站长期无人维护，如有错漏，望谅解。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="tag">节目与播报时间</span>
+      <table class="ledger">
+        <tr><th>时间</th><th>节目</th><th>备注</th></tr>
+        <tr><td>05:30</td><td>渔汛与潮汐</td><td>出海前播报</td></tr>
+        <tr><td>06:00</td><td>转播中央台新闻</td><td>整点呼号</td></tr>
+        <tr><td>12:00</td><td>海岛天气</td><td>每日更新</td></tr>
+        <tr><td>18:00</td><td>本地点播</td><td>来信点歌与留言</td></tr>
+        <tr><td>21:00</td><td>夜间值班播报</td><td>台风季加密</td></tr>
+        <tr><td>—</td><td>（已停播）</td><td>设备封存中</td></tr>
+      </table>
+      <p style="font-size:12px;color:#5a4b35;">（每次开机、每到整点，播音员须播报一次本站呼号，以确认是本站信号。）</p>
+    </div>
+
+    <div class="section">
+      <span class="tag">海岛天气</span>
+      <div class="wx">
+        <div class="now"><span class="deg">22.4°</span><span class="desc">阴，东北风 5 级，海面有涌</span></div>
+        <dl>
+          <dt>站点</dt><dd>东海乡灯塔嘴观测点</dd>
+          <dt>更新</dt><dd>已停止自动更新（最后一条记录见存档）</dd>
+          <dt>潮位</dt><dd>低潮 · 09:12 / 21:40</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="tag">联系方式</span>
+      <div class="contact">
+        地址：<b>东海乡 灯塔嘴 1 号</b>（旧灯塔值班房，门口有铁栏）<br>
+        电话：<b>0593-XXXXXXX</b>（线路已随站撤销）<br>
+        来信：<b>东海乡邮政代办所 代转</b><br>
+        值班：<b>已无固定值班员</b>，设备由乡里代管
+      </div>
+    </div>
+
+    <footer>
+      <div class="row">
+        <span class="mono">东海·灯塔广播站 版权所有 © 1998 — 20XX</span>
+        <span class="mono">本站由 东海乡文化站 维护 · 最后更新 <span class="void">20XX-XX-XX</span></span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span class="mono">建议分辨率 1024 × 768 · 您是本页第 000915 位访客</span>
+        <span class="mono">档案 00 / 26</span>
+      </div>
+      <div class="row" style="margin-top:6px;">
+        <span class="mono">本站已停止更新，内容仅供存档查阅。</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ================= 隐藏页容器 ================= -->
+  <div class="page" id="doc"></div>
+
+</div>
+
+<button class="nbtab" id="nbTab">我的记录 <b id="nbCount">0</b></button>
+<div class="nboverlay" id="nbOverlay"></div>
+<div class="nbpanel" id="nbPanel">
+  <div class="nbhead">
+    <h3>我的记录 · 值班日志</h3>
+    <button class="cls" id="nbClose">合上</button>
+  </div>
+  <div class="nbcols">
+    <div class="nbcol">
+      <h4>已找到的档案</h4>
+      <ul class="nblist" id="nbPages"><li style="color:#7a6a4a;">还没有翻到任何一页。</li></ul>
+    </div>
+    <div class="nbcol">
+      <h4>试过的关键词</h4>
+      <ul class="nblist" id="nbKeys"><li style="color:#7a6a4a;">还没有检索过。</li></ul>
+    </div>
+  </div>
+  <button class="nbkill" id="nbKill">擦掉这本记录（清空重来）</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var TOTAL = 26;
+
+  /* ============ 页面数据 ============ */
+  var PAGES = {
+    /* ---------- 第一层 入门 ---------- */
+    "灯塔": { n:1, t:"本站由来 · 灯塔嘴", body:
+      '<p>灯塔嘴旧有一座航标灯塔。一九九七年灯器更新后，原值班房空置，乡里便把广播站搬了进去：一来有现成的电，二来地势高，信号打得远。于是「灯塔」和「广播站」就一直连着叫，成了<strong>灯塔广播站</strong>。</p>'+
+      '<p>建站那年，站里只有两个人：一个管机器，一个管播音。播音的姑娘是本地人，从乡里的广播转播员做起，声音不高，可海上的船都认得出。她在节目里从不报自己的名字，只在每次播报结束时，说一句「风里雾里，各自平安」。</p>'+
+      '<div class="note">日常事项摘录：「每周一换一次天线拉线；雨季前查防雷；开台、整点、收台，都要播报一次<b>呼号</b>。」</div>'+
+      '<p>这个呼号，老渔民比站里人还记得牢。</p>'
+    },
+
+    "呼号": { n:2, t:"本站呼号：东海七号", body:
+      '<p>本站经批准使用的呼号是「<strong>东海七号</strong>」，在呼号序列里写作 <span class="void">XS-7</span>。每次开机、每到整点，播音员须播报一次呼号，以确认是本站信号。</p>'+
+      '<div class="note blue">呼号播报词（标准格式）：「这里是东海七号，灯塔广播站。」</div>'+
+      '<p>老渔民说，这片海晚上信号挤，光认台名还不够，要认<b>频率</b>——认准了那一个数，才不会被别台的杂音带偏。</p>'
+    },
+
+    "频率": { n:3, t:"发射频率与覆盖范围", body:
+      '<p>本站主频 <strong>调频 88.7 兆赫</strong>，覆盖灯塔嘴周边约三十海里。天线架在旧灯塔顶层，遇台风前须人工收线，否则馈线会被吹断。</p>'+
+      '<p>「88.7」这个数，站里人念了几十年。台风季时，岸上的人把收音机拧到 88.7，就等于知道海上的家人还有没有消息。</p>'+
+      '<div class="note">值班须知（残页）：「开机先对<b>值机表</b>，谁当班、谁补班，表上写得清楚，不许口头交接。」</div>'+
+      '<p>那张表，是站里唯一不会说谎的东西。</p>'
+    },
+
+    "值机表": { n:4, t:"值机表（残页）", body:
+      '<p>值机表按周张贴，谁值守白班、谁值守夜班，逐格填写。搬迁时只抢救下一页，其余已随值班房拆除散失。</p>'+
+      '<table class="ledger"><tr><th>班次</th><th>值守人</th><th>备注</th></tr>'+
+      '<tr><td>白班</td><td>乡文化站 代班</td><td>—</td></tr>'+
+      '<tr><td>夜班</td><td>林素秋</td><td>照常</td></tr>'+
+      '<tr><td>夜班</td><td><span class="void">（一栏被反复涂改）</span></td><td>台风前夜</td></tr></table>'+
+      '<p>夜班那一栏原本只写一个人名，后来被人拿铅笔反复描过、又擦过。表角有一行小字：「以<b>台风</b>警报为准，谁都不许离岗。」</p>'
+    },
+
+    "台风": { n:5, t:"台风夜 · 播报记录", body:
+      '<p>录音带标签上只有一行字：「<b>台风夜 · 全程 · 勿抹</b>」。这是站里唯一被单独标注「勿抹」的一盘带子。</p>'+
+      '<p>那夜风大，按规程本应停播、断电、人员撤离。可日志显示，信号一直没断，从傍晚报到最后一条气象，之后是长时间的空载电流声。</p>'+
+      '<p>第二天清早，岸上的渔民说，夜里在 88.7 上一直有人在报方向、报潮位、报「还没到、再等等」。这几句，是事后凭记忆补记的。</p>'+
+      '<div class="note">日志边注：「其间插播听众<b>点播</b>一起。」</div>'
+    },
+
+    "点播": { n:6, t:"点播记录 · 未播出的一则", body:
+      '<p>站里每天登记听众点播：船名、想说的话、想听的歌。台风夜的登记簿上，多了一则没有署船名的点播。</p>'+
+      '<div class="note blue">点播内容（原文）：「素秋姐，你要是还在播，就再报一次潮位。我们在回来的路上，看不见灯。」</div>'+
+      '<p>按规矩，这则该在晚六点的本地点播里念。但记录显示，它被挪到了深夜，并且只念了一次，没有放歌。</p>'+
+      '<p>那一次之后，站里给自己加了一条规矩：台风夜保留<b>最后一期</b>常规播报，全程留档，不得中断。</p>'
+    },
+
+    "最后一期": { n:7, t:"最后一期（播出稿）", body:
+      '<p>稿纸只有一页，字迹规整，像是早就写好的。全文没有一句告别，只把该报的都报完：风向、潮位、返航建议，以及那句每次都会说的话。</p>'+
+      '<div class="note blue">「风里雾里，各自平安。」</div>'+
+      '<p>稿纸末尾空了一大段，最后留下一行小字，写在页脚外面，像是给自己看的：</p>'+
+      '<div class="note">「机器我留在原位了。谁需要，就来开。」</div>'+
+      '<p>那盘「勿抹」的录音带里，反复出现一个声音，却<b>从没报过自己的名字</b>。她的名字，只在值机表上出现过——那个夜班一栏里，被铅笔描过又擦过、却始终没有划掉的人。</p>'
+    },
+
+    /* ---------- 第二层 进阶 ---------- */
+    "林素秋": { n:8, t:"播音员 · 林素秋", body:
+      '<p>林素秋，本地渔家女。父亲在她十四岁那年出海，遇上台风，没有再回来。她长大后进了乡广播站，从转播员做起，声音不高，可海上的船都认得出。</p>'+
+      '<p>一九九八年灯塔广播站建起来，她成了这里唯一的播音员。她有一样习惯：每次播报，最后一句一定是「风里雾里，各自平安」。</p>'+
+      '<p>她把家安在值班室隔壁。有人问她为什么不住乡里去，她说：「离广播近一点，夜里好起身。」</p>'+
+      '<div class="note">值机表上，另一个名字也在：机务员 <b>陈望</b>。一个管机器，一个管播音，搭班搭了十一年。</div>'
+    },
+
+    "陈望": { n:9, t:"机务员 · 陈望", body:
+      '<p>陈望，建站时从县里调来，管机器、上天线。寡言，手艺好。「东海七号」这个呼号，是他和林素秋一起起的。</p>'+
+      '<p>他有个习惯：每次播完，把机器擦一遍，说「机器也得有人疼」。</p>'+
+      '<p>台风夜，他在塔顶收天线拉线，手冻得握不住钳子，还是把线一根根收好了。</p>'+
+      '<div class="note">值班室墙上挂着一本<b>登记簿</b>：进出机房、上塔，都要登记。</div>'
+    },
+
+    "登记簿": { n:10, t:"值班室登记簿（受限）", gate:
+      { label:"请输入本站呼号里的那个数字", hint:"登记簿按站号编册。本站呼号写作 XS-□，取下那个□，就是这一册的册号。", ans:["7","07","七"] }, body:
+      '<p>登记簿翻到本站这一册。进出记录剩得不多，能认出的几行：</p>'+
+      '<table class="ledger"><tr><th>日期</th><th>事由</th><th>署名</th></tr>'+
+      '<tr><td>1998.06</td><td>建站登记</td><td>陈望</td></tr>'+
+      '<tr><td>2009.08</td><td>台风夜 · 加记</td><td>陈望</td></tr></table>'+
+      '<p>往后一年一年，只剩一个人的名字：陈望。最后几页，一页一笔，字迹越来越慢：「上塔，收线。」「开机，试播。」「今天海面晴，无事。」</p>'+
+      '<div class="note red">备注栏一行小字：「台风夜如主频受扰，改用<b>备用频率</b>。备用频率比主频低 1.4 兆赫。」</div>'
+    },
+
+    "87.3": { n:11, t:"备用频率 87.3", body:
+      '<p>台风夜主频受雷电干扰。陈望动手，改用<b>备用频率</b>——它比主频低 1.4 兆赫，把天线调向东北，信号压过风雨，压过杂音。</p>'+
+      '<p><span class="paperclip">算一算</span>主频是 88.7 兆赫，备用频率比它低 1.4，所以 88.7 − 1.4 = <strong>87.3</strong> 兆赫。</p>'+
+      '<p>那一夜，海上的人把收音机拧到 87.3，听见素秋的声音一直在。</p>'+
+      '<div class="note">也就是从那一夜起，87.3 上多了一段谁也听不清的东西——一段<b>信号</b>，很短，循环往复。</div>'
+    },
+
+    "信号": { n:12, t:"信号检测档案（受限）", gate:
+      { label:"请输入信号里反复拍发的那个名字", hint:"信号按国际摩尔斯电码逐字拍发，拼的是一个人的名字的拼音，两个音节。解码后填汉字。", ans:["素秋","林素秋","suqiu"] }, body:
+      '<p>这段信号从台风年冬天开始，一直在 87.3 上循环。它不是求救，也不是故障——是按国际摩尔斯电码，一遍一遍拍发的五个字母：</p>'+
+      '<div class="morse">. . . &nbsp;&nbsp; . . − &nbsp;&nbsp; − − . − &nbsp;&nbsp; . . &nbsp;&nbsp; . . −</div>'+
+      '<div class="legend">S = . . . ｜ U = . . − ｜ Q = − − . − ｜ I = . . ｜ U = . . −</div>'+
+      '<p>译出来，是两个字：<strong>素秋</strong>。</p>'+
+      '<p>有人把她的名字编进了电波里，让她一直在海上「值班」。信号收尾还跟着一组短码，译出来是她每次播报的那句收尾——「各自平安」。</p>'+
+      '<div class="note">信号是谁留下的？机器在站里，钥匙在值班室，当年守着机器的人，只有一个名字。</div>'
+    },
+
+    "守站须知": { n:13, t:"守站须知四条", body:
+      '<p>说是守站须知，其实只有四句，写在值班室门板上，据说是陈望的师父建站时留下的。四条，每条<b>头一个字，当年的人都没留意</b>。</p>'+
+      '<div class="note">'+
+      '<p style="margin:0 0 8px;"><b>塔</b>上的拉线，台风前必须收好。</p>'+
+      '<p style="margin:0 0 8px;"><b>顶</b>灯要常擦，夜里才亮得远。</p>'+
+      '<p style="margin:0 0 8px;"><b>有</b>人上塔，须两人同行，登记在册。</p>'+
+      '<p style="margin:0;"><b>信</b>得过的人，才许单独进机房。</p>'+
+      '</div>'+
+      '<p>四条连起来读，每句头一个字，是「塔顶有信」——旧灯塔的顶上，像是有人留过什么东西。</p>'
+    },
+
+    "塔顶": { n:14, t:"塔顶", body:
+      '<p>旧灯塔顶层，一圈铁栏，下面是海。天线拉线从这儿一直拉到值班房，像一根绷紧的弦。</p>'+
+      '<p>台风夜，陈望一个人在塔顶待到天亮。他后来跟人说，那晚他一手拽着拉线，一手扶着灯，怕的不是风，是信号断了。</p>'+
+      '<p>塔顶的铁栏上，用钳子刻着两个小字：「<strong>等她</strong>」。字很小，被海风吹得发白。</p>'+
+      '<div class="note">塔顶还挂着一只旧<b>潮汐</b>表，是值班时看潮位用的。</div>'
+    },
+
+    "潮汐": { n:15, t:"潮汐表（台风夜）", body:
+      '<p>潮汐表按农历排，一行一天。台风夜那天的记录被红笔圈过：</p>'+
+      '<table class="ledger"><tr><th>日期</th><th>低潮</th><th>高潮</th></tr>'+
+      '<tr><td>八月二十一日</td><td>09:12 / 21:40</td><td>03:20 / 15:50</td></tr></table>'+
+      '<p>素秋那一夜报的就是这张表上的数：涨到哪儿，退到哪儿，船该往哪儿靠。</p>'+
+      '<div class="note">表格最底下，压着一张从船上撕下来的便条，角上画着一条横杠，底下压着半句话：「我们在回来的路上」——落款处没有名字。</div>'
+    },
+
+    "守夜人": { n:16, t:"守夜人名册（受限）", gate:
+      { label:"请输入本站早年对夜班值守人的旧称呼", hint:"名册上三位值守人的姓氏，取拼音首字母，依次是 S、Y、R——正是这个旧称呼三个字的拼音首字母。", ans:["守夜人"] }, body:
+      '<p>「守夜人」是本站早年对夜班的叫法。老名册上，一格一格填着谁负责哪一宿：</p>'+
+      '<table class="ledger"><tr><th>节气</th><th>值守人</th><th>备注</th></tr>'+
+      '<tr><td>谷雨</td><td>沈玉兰</td><td>照常</td></tr>'+
+      '<tr><td>小满</td><td>严阿海</td><td>照常</td></tr>'+
+      '<tr><td>芒种</td><td>阮守义</td><td>照常</td></tr></table>'+
+      '<p>取三位值守人的<b>姓氏</b>——沈、严、阮——首字母正是 S、Y、R，连起来读，就是这个旧称呼。</p>'+
+      '<div class="note">名册最后一页，陈望补了一行：「守夜人，陈望，2009 年冬起，长夜。」<br>名册背后夹着一张排班草稿，最上面写着日期：二〇〇九年<b>八月二十一日</b>。</div>'
+    },
+
+    "值班室": { n:17, t:"值班室（受限）", gate:
+      { label:"请输入台风夜的日期（四位数字）", hint:"名册背后那张排班草稿顶上写着：二〇〇九年八月二十一日。把它写成四位数字，如 0XXX。", ans:["0821","821","8.21","08.21","八月二十一日"] }, body:
+      '<p>值班室不大，一张床，一张桌，一台机器。素秋的家就在隔壁，抬脚就到。</p>'+
+      '<p>桌上摊着一本台历，二〇〇九年八月那一页，21 日用红笔圈了个圈，旁边写着两个字：「<strong>白鹿</strong>」——那是那一夜台风的名字。</p>'+
+      '<div class="note">那晚，值班室里只有两个人。谁也没走。</div>'
+    },
+
+    /* ---------- 第三层 核心 ---------- */
+    "船队": { n:18, t:"灯塔嘴船队名单", body:
+      '<p>灯塔嘴的渔船，台风前都要归港。二〇〇九年八月二十一日夜里，还有三条船没有回来。</p>'+
+      '<table class="ledger"><tr><th>船名</th><th>船长</th><th>编号</th></tr>'+
+      '<tr><td>顺风号</td><td>沈老大</td><td>DHT-03</td></tr>'+
+      '<tr><td>平安号</td><td>严阿海</td><td>DHT-07</td></tr>'+
+      '<tr><td>望归号</td><td>阮守义</td><td>DHT-12</td></tr></table>'+
+      '<p>名单里最扎眼的是那艘「<strong>平安号</strong>」——它出海前，船长严阿海在船头刷了两个大字：平安。而严阿海这个名字，也出现在守夜人名册上，那一格写着「小满」。</p>'
+    },
+
+    "平安号": { n:19, t:"平安号 · 那一夜", body:
+      '<p>平安号，编号 DHT-07，船长严阿海。八月二十一日夜，它在灯塔嘴外海遇上台风，主机熄火，在浪里漂了整整一夜。</p>'+
+      '<p>严阿海后来跟人说：那一夜，全船人就着一台小收音机，先把频率拧到 88.7——是杂音；又拧到 <strong>87.3</strong>——听见一个女声，一直在报：「还没到，再等等。」</p>'+
+      '<div class="note blue">「我们就等着。等到天亮，风小了，船又能动了。」</div>'+
+      '<p>那条未署名的点播，笔迹和严阿海写给站里的信一样；信封角上那条横杠，是他画船头「平」字时，习惯先落下的第一笔。</p>'
+    },
+
+    "搬迁": { n:20, t:"搬迁 · 站里只剩一个人", body:
+      '<p>二〇一〇年起，海岛搬迁，收音机越来越少。播出时段逐年缩短：先停了本地点播，再停了午间天气，最后只剩晚间一次。</p>'+
+      '<p>乡里几次要撤站，陈望不同意。他说：「频率保留，机器留着，我来守。」</p>'+
+      '<p>后来乡里也就不提了。站里只剩他一个人。他还是每晚开机，试播一次呼号——「这里是东海七号，灯塔广播站。」哪怕，没有人再听。</p>'
+    },
+
+    "日记": { n:21, t:"陈望的日记（残本）", body:
+      '<p>陈望的日记只剩一本，字迹很短，一天有时只写一两行。</p>'+
+      '<div class="note">「素秋病了，住在乡下卫生院。她说，夜里听见机器的电流声，就踏实。」<br><br>「她走的那年冬天，海面很静。」<br><br>「我把机器擦了又擦。手指放到发射键上，没舍得拿开。」</div>'
+    },
+
+    "2009": { n:22, t:"本站最后更新 · 2009", body:
+      '<p>本站最后一次常规播出，停在二〇〇九年台风季之后。此后节目单空白，频率保留，无人值守。</p>'+
+      '<p>乡志上记着：台风「白鹿」于二〇〇九年八月二十一日夜登陆，灯塔嘴外海三条渔船失联，次日凌晨全部安全归港，无人员伤亡。</p>'+
+      '<div class="note red">记载里没有提广播站，也没有提那一夜，是谁在播。</div>'
+    },
+
+    "回来": { n:23, t:"回来的船", body:
+      '<p>三条船是八月二十二日凌晨回来的。严阿海把船靠上码头，第一件事是往站里打电话，说了三个字：「听到了。」</p>'+
+      '<p>那天早上的值机表上，林素秋在夜班一栏，轻轻画了一道线，写下两个字：「<strong>平安</strong>」。</p>'+
+      '<div class="note">这也是她值完的最后一班。</div>'
+    },
+
+    "发射机": { n:24, t:"发射机柜底（受限）", gate:
+      { label:"请输入本站主频（数字）", hint:"发射机柜的钥匙挂在值班室，钥匙牌上刻着海上的船认准的那个数——本站主频，一个三位数的兆赫。", ans:["88.7","887","88.7兆赫","88.7MHz"] }, body:
+      '<p>发射机柜最底下压着一样东西：一盘录音带。标签上是素秋的字——「风里雾里，各自平安」。</p>'+
+      '<p>录音带旁边，是陈望留下的一张字条，只写了一行：「留给听得懂的人。」</p>'+
+      '<div class="note">字条下面，压着一封折了很多次、边角已经磨毛的信。</div>'
+    },
+
+    "留言": { n:25, t:"陈望的留言", body:
+      '<p>信纸上，是陈望的字，写得很慢，一笔一画：</p>'+
+      '<div class="note blue">'+
+      '看留言的人：<br><br>'+
+      '如果你能一路查到这里，那你多半也听出来了——87.3 上那段信号，念的是谁的名字。<br><br>'+
+      '素秋从没在广播里报过自己的名字。她说过，播音员吃的是台名的饭，名字不重要。可我总觉得，她的名字，该让整片海都听见。<br><br>'+
+      '所以我把发射机留着，没关。那不是故障，是我给她排的班——一个很长的夜班。<br><br>'+
+      '她守着这片海，守到船回来，守到最后一班岗。现在，听的人来了。<br><br>'+
+      '你可以替我把发射机停下了。不是关机，是<span class="hl">下班</span>——她值完了。'+
+      '</div>'
+    },
+
+    "下班": { n:26, t:"全站已解密 · 下班", body:
+      '<p>你听懂了。那段在 87.3 上循环了十几年的信号，不是故障，是一句没说完的「各自平安」。你伸手，替陈望按下了最后一个开关。发射机停在 87.3，电平表一格一格，落回最小。这一次，不是断电，是下班。</p>'+
+      '<div class="note"><b>她是谁？</b><br>'+
+      '林素秋，本地渔家女。父亲在她十四岁那年出海遇上台风，没有再回来。她长大后进了乡广播站，从转播员做起。一九九八年灯塔广播站建起来，她成了这里唯一的播音员。<br>'+
+      '她的声音不高，可海上的船都认得出。她从不报自己的名字，只在每次播报的最后，说一句「风里雾里，各自平安」。</div>'+
+      '<div class="note"><b>那一夜，到底发生了什么？</b><br>'+
+      '二〇〇九年八月二十一日，台风「白鹿」登陆。按规程，台风警报一响，广播站就要停播、断电、撤离。可那天夜里，灯塔嘴外海还有三条船没有回来。<br>'+
+      '林素秋没有走。她从傍晚一直播到天亮，报风向、报潮位、报那句「还没到，再等等」。机务员陈望也没有走，他上塔顶收好拉线，改用备用频率 87.3，替她把信号送得更远。<br>'+
+      '天亮时，三条船一条不少，全部归港。其中一艘「平安号」，正是那条未署名点播的主人——船长严阿海。</div>'+
+      '<div class="note"><b>为什么广播站停了？信号里为什么藏着一个名字？</b><br>'+
+      '那一夜之后，海岛开始搬迁，广播站逐年缩短播出，最后停播。乡里几次要撤站，是陈望一个人守了下来。<br>'+
+      '他守着机器，不是因为还有谁要听，是因为——守着它，就好像素秋还在值班。素秋病重、去世，都在广播站停播前后。送走她那年冬天，陈望把机器擦了一遍又一遍，手指放到发射键上，终于按了下去。<br>'+
+      '他把她的名字编成摩尔斯电码，留在 87.3 上，让它一遍一遍地念：素秋。他没有告诉任何人。岛上的人听见那段信号，只当是机器坏了、忘了关；只有听得懂电码的人，才知道那里面是一个名字。</div>'+
+      '<div class="note"><b>后来呢？</b><br>'+
+      '陈望也走了。广播站彻底空了，设备封存，频率保留。又过了许多年，一个渔民的孙子把那段信号录下来传到网上，问：这是什么？<br>'+
+      '有人把它译了出来，是两个字——素秋。于是东海乡文化站把旧站的资料整理出来，做了这个页面。你说不清它是纪念，还是在等一个听得懂的人。</div>'+
+      '<p>你把那张字条、那盘录音带，一起收好。海面上，天色一点一点亮起来。</p>'+
+      '<div class="note red">「风来了，我们就播；风停了，我们还在。」<br>——现在，可以歇了。</div>'+
+      '<p style="text-align:center;margin-top:20px;font-family:\'DM Serif Display\',serif;font-size:18px;color:var(--blue);">—— 全站已解密 · 谢谢你替她值完最后一班 ——</p>'
+    }
+  };
+
+  /* ============ 别名 ============ */
+  var ALIAS = {
+    "灯塔广播站":"灯塔","广播站":"灯塔","灯塔嘴":"灯塔","本站":"灯塔","东海灯塔":"灯塔",
+    "东海七号":"呼号","台名":"呼号","xs7":"呼号","xs-7":"呼号","callsign":"呼号",
+    "调频":"频率","887":"频率","88.7":"频率","88.7兆赫":"频率","兆赫":"频率",
+    "值班表":"值机表","值机":"值机表",
+    "台风夜":"台风","白鹿":"台风","台风白鹿":"台风",
+    "来信":"点播","点播记录":"点播","听众点播":"点播",
+    "播出稿":"最后一期","结束语":"最后一期","最后一期节目":"最后一期",
+    "素秋":"林素秋","素秋姐":"林素秋","播音员":"林素秋","林秀云":"林素秋",
+    "机务员":"陈望","老陈":"陈望",
+    "值班簿":"登记簿","登记册":"登记簿",
+    "备用频率":"87.3","87.3兆赫":"87.3","873":"87.3",
+    "电波":"信号","收听记录":"信号",
+    "须知":"守站须知","守则":"守站须知","守站":"守站须知",
+    "天线":"塔顶","塔上":"塔顶","塔顶有信":"塔顶","灯塔顶":"塔顶",
+    "潮位":"潮汐","潮汐表":"潮汐",
+    "值夜":"守夜人","夜班":"守夜人",
+    "值班房":"值班室","值班室登记":"值班室",
+    "渔船":"船队","渔民":"船队","船队名单":"船队",
+    "严阿海":"平安号","平安":"平安号",
+    "撤站":"搬迁","撤乡":"搬迁",
+    "陈望的日记":"日记",
+    "回港":"回来","归港":"回来","归航":"回来",
+    "柜底":"发射机","发射机柜":"发射机",
+    "字条":"留言","陈望的留言":"留言",
+    "关机":"下班"
+  };
+
+  /* ============ 陷阱词 ============ */
+  var TRAPS = {
+    "真相":"本站不设这一栏。这里只有存档，没有「答案」。您要找的东西，藏在某一页的字缝里。",
+    "结局":"本站没有「结局」这个页面。故事是自己走出来的，不是搜出来的。",
+    "通关":"本站是个旧广播站的存档，不是游戏，也没有「通关」。",
+    "解密":"本站没有「解密」入口。信号要听，名字要译，路要自己走。",
+    "密码":"本站记录里没有「密码」两个字。倒是有个呼号、一个频率，还有个日期。",
+    "广播员":"本站没有登记过「广播员」这个称呼。那个一直在播的人，用的是自己的名字。",
+    "店主":"本站不是店铺。守这台机器的人，是机务员。",
+    "台长":"本站没有台长。建站那年，站里只有两个人。",
+    "老周":"查无此人。本站的人，一个姓林，一个姓陈。",
+    "女儿":"本站没提到过谁的儿女。倒是有个姑娘，父亲在她十四岁那年出了海。",
+    "儿子":"本站没提到过谁的儿女。名册上只有一个「长夜」的守夜人。",
+    "死亡":"本站是广播站的存档，只记播出，不记这些。",
+    "陌生信号":"信号就在 87.3 上，已经循环了很多年。您要查的那一段，本站有专档。"
+  };
+
+  /* ============ 记录本 / 存档 ============ */
+  var SKEY = "lighthouse_bc_notebook_v1";
+  var state = { pages:{}, keys:[], unlocked:{} };
+  try{
+    var raw = localStorage.getItem(SKEY);
+    if(raw){ var s = JSON.parse(raw); if(s && typeof s==='object'){ state.pages=s.pages||{}; state.keys=s.keys||[]; state.unlocked=s.unlocked||{}; } }
+  }catch(e){}
+  function save(){ try{ localStorage.setItem(SKEY, JSON.stringify(state)); }catch(e){} }
+
+  /* ============ 工具 ============ */
+  function norm(s){
+    return (s||'').toLowerCase().replace(/[\s　'"「」《》【】·,，。.、:：;；!！?？\-—_（）()]/g,'').trim();
+  }
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  var input=document.getElementById('q');
+  var msg=document.getElementById('msg');
+  var home=document.getElementById('home');
+  var doc=document.getElementById('doc');
+
+  function lookup(raw){
+    var k = norm(raw);
+    if(!k) return null;
+    if(ALIAS[k]) k = ALIAS[k];
+    if(PAGES[k]) return {key:k, page:PAGES[k]};
+    for(var key in PAGES){ if(norm(key)===k) return {key:key, page:PAGES[key]}; }
+    for(var a in ALIAS){ if(norm(a)===k){ var t=ALIAS[a]; if(PAGES[t]) return {key:t, page:PAGES[t]}; } }
+    return null;
+  }
+
+  function findTrap(raw){
+    var k = norm(raw);
+    if(!k) return null;
+    if(TRAPS[k]) return TRAPS[k];
+    for(var key in TRAPS){ if(norm(key)===k) return TRAPS[key]; }
+    return null;
+  }
+
+  /* ============ 渲染 ============ */
+  function renderDoc(p, key){
+    doc.innerHTML =
+      '<div class="doc">'+
+        '<div class="doc-bar"><span>档案 '+pad(p.n)+' / '+TOTAL+'</span><span>灯塔广播站 · 隐藏页</span></div>'+
+        '<div class="doc-body">'+
+          '<h2>'+p.t+'</h2><span class="rule"></span>'+
+          p.body+
+          '<div class="pagetag">'+pad(p.n)+' / '+TOTAL+'</div>'+
+          '<button class="backbtn" id="bk">← 返回首页</button>'+
+        '</div>'+
+      '</div>';
+    document.getElementById('bk').onclick = showHome;
+  }
+
+  function renderGate(p, key){
+    doc.innerHTML =
+      '<div class="doc">'+
+        '<div class="doc-bar"><span>档案 '+pad(p.n)+' / '+TOTAL+'</span><span>受限页面 · 需验证</span></div>'+
+        '<div class="doc-body">'+
+          '<h2>'+p.t+'</h2><span class="rule"></span>'+
+          '<p><span class="locked-tag">此页已锁定</span></p>'+
+          '<p>这一页被锁住了。要翻开它，得先输入页面上要求的编号或答案。</p>'+
+          '<div class="gate">'+
+            '<label>'+p.gate.label+'</label>'+
+            '<div class="srow"><input id="gi" type="text" autocomplete="off" placeholder="在这里输入……"><button id="gk">确认</button></div>'+
+            '<div class="gmsg" id="gmsg"></div>'+
+            '<div class="ghint">线索：'+p.gate.hint+'</div>'+
+          '</div>'+
+          '<button class="backbtn" id="bk">← 返回首页</button>'+
+        '</div>'+
+      '</div>';
+    var gi = document.getElementById('gi');
+    var gm = document.getElementById('gmsg');
+    function tryGate(){
+      var v = norm(gi.value);
+      var ok = p.gate.ans.some(function(a){ return norm(a)===v; });
+      if(ok){
+        state.unlocked[key] = true;
+        state.pages[key] = p.n;
+        save(); refreshNotebook();
+        gm.className='gmsg'; gm.textContent='验证通过，正在翻开……';
+        setTimeout(function(){ renderDoc(p, key); }, 450);
+      }else{
+        gm.className='gmsg bad'; gm.textContent='不对。锁没有开。';
+      }
+    }
+    document.getElementById('gk').onclick = tryGate;
+    gi.addEventListener('keydown', function(e){ if(e.key==='Enter') tryGate(); });
+    document.getElementById('bk').onclick = showHome;
+  }
+
+  function showHome(){
+    doc.classList.remove('on');
+    home.classList.add('on');
+    window.scrollTo(0,0);
+  }
+
+  function showPage(key){
+    var p = PAGES[key];
+    if(p.gate && !state.unlocked[key]){
+      renderGate(p, key);
+    }else{
+      renderDoc(p, key);
+      state.pages[key] = p.n;
+      save(); refreshNotebook();
+    }
+    home.classList.remove('on');
+    doc.classList.add('on');
+    window.scrollTo(0,0);
+  }
+
+  /* ============ 检索 ============ */
+  function submit(){
+    var raw = input.value;
+    if(!norm(raw)){ msg.textContent='请输入要检索的内容。'; msg.className='msg bad'; return; }
+    input.value='';
+
+    var hit = lookup(raw);
+    if(hit){
+      if(state.keys.indexOf(norm(raw))<0){ state.keys.push(norm(raw)); if(state.keys.length>40) state.keys.shift(); }
+      msg.textContent='检索到 1 条结果，正在打开……';
+      msg.className='msg';
+      showPage(hit.key);
+      setTimeout(function(){ msg.textContent=''; }, 2200);
+      return;
+    }
+    var trap = findTrap(raw);
+    if(trap){
+      if(state.keys.indexOf(norm(raw))<0){ state.keys.push(norm(raw)); if(state.keys.length>40) state.keys.shift(); }
+      save(); refreshNotebook();
+      msg.innerHTML='未找到相关内容。<br>'+trap;
+      msg.className='msg bad';
+      return;
+    }
+    msg.textContent='未找到相关内容。';
+    msg.className='msg bad';
+  }
+
+  document.getElementById('go').onclick = submit;
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') submit(); });
+
+  /* ============ 记录本 UI ============ */
+  var nbPanel=document.getElementById('nbPanel');
+  var nbOverlay=document.getElementById('nbOverlay');
+  var nbCount=document.getElementById('nbCount');
+  var nbPages=document.getElementById('nbPages');
+  var nbKeys=document.getElementById('nbKeys');
+
+  function refreshNotebook(){
+    var arr=[];
+    for(var k in state.pages){ arr.push({k:k, n:state.pages[k]}); }
+    arr.sort(function(a,b){ return a.n-b.n; });
+    nbCount.textContent = arr.length;
+    if(!arr.length){
+      nbPages.innerHTML='<li style="color:#7a6a4a;">还没有翻到任何一页。</li>';
+    }else{
+      nbPages.innerHTML = arr.map(function(o){
+        return '<li><span>'+ PAGES[o.k].t +'</span><span class="num">'+ pad(o.n) +' / '+TOTAL+'</span></li>';
+      }).join('');
+    }
+    if(!state.keys.length){
+      nbKeys.innerHTML='<li style="color:#7a6a4a;">还没有检索过。</li>';
+    }else{
+      nbKeys.innerHTML = state.keys.slice().reverse().map(function(k){
+        return '<li><span>'+ k +'</span><span class="num">已试</span></li>';
+      }).join('');
+    }
+  }
+
+  function openNb(){ nbPanel.classList.add('open'); nbOverlay.classList.add('on'); }
+  function closeNb(){ nbPanel.classList.remove('open'); nbOverlay.classList.remove('on'); }
+  document.getElementById('nbTab').onclick = openNb;
+  document.getElementById('nbClose').onclick = closeNb;
+  nbOverlay.onclick = closeNb;
+  document.getElementById('nbKill').onclick = function(){
+    if(window.confirm('确定要擦掉这本记录吗？已找到的档案与关键词都会被清空。')){
+      state = { pages:{}, keys:[], unlocked:{} };
+      save(); refreshNotebook();
+      msg.textContent='记录已清空。'; msg.className='msg';
+    }
+  };
+
+  refreshNotebook();
+
+  /* ============ 顶部电平条 + 在线收听（纯示意） ============ */
+  var bars=document.getElementById('bars');
+  for(var bi=0;bi<9;bi++){
+    var b=document.createElement('i');
+    b.style.height=(10+((bi*37)%70))+'%';
+    bars.appendChild(b);
+  }
+  var wave=document.getElementById('wave');
+  for(var wi=0;wi<24;wi++){
+    var w=document.createElement('i');
+    w.style.animationDelay=(-(wi*0.09)%1.5)+'s';
+    w.style.animationDuration=(1.15+(wi%5)*0.12)+'s';
+    wave.appendChild(w);
+  }
+  var listen=document.getElementById('listen'),
+      btn=document.getElementById('playBtn'),
+      meterNum=document.getElementById('meterNum'),
+      freqLine=document.getElementById('freqLine');
+  var live=false, timerId=null;
+  btn.addEventListener('click',function(){
+    live=!live;
+    listen.classList.toggle('live',live);
+    btn.textContent = live ? '❚❚ 停止收听' : '▶ 开始收听';
+    if(live){
+      freqLine.textContent = '—— MHz · 信号循环中';
+      timerId=setInterval(function(){
+        var v=(-24+Math.random()*20);
+        meterNum.textContent=(v<0?-v.toFixed(1):v.toFixed(1))+' dB';
+      },420);
+      meterNum.textContent='-18.6 dB';
+    }else{
+      clearInterval(timerId);
+      meterNum.textContent='-∞ dB';
+      freqLine.textContent='—— MHz · 呼号待定';
+    }
+  });
+})();
+</script>
+<a href="guide.html" class="guideTab" aria-label="查看攻略">攻略</a>
+<style>
+.guideTab{position:fixed;left:10px;bottom:12px;z-index:1000;font-family:"Bungee","Space Mono",monospace;font-size:12px;letter-spacing:.08em;color:#fff;background:var(--blue,#26478f);text-decoration:none;line-height:1;padding:11px 13px;border:2px solid var(--ink,#241c14);box-shadow:3px 3px 0 var(--ink,#241c14);opacity:.9;transition:opacity .15s,transform .15s,box-shadow .15s}
+.guideTab:hover{opacity:1;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink,#241c14)}
+.guideTab:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink,#241c14)}
+</style>
+</body>
+</html>

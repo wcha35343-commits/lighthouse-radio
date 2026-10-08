@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>灯塔广播站 · 攻略</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Mono:wght@400;700&family=Bungee&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#cf3a30;--yellow:#e8b62c;--blue:#26478f;--purple:#6b3fa0;--olive:#6f7b3b;--ink:#2a2318;--paper:#f3ead7;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Space Mono',ui-monospace,monospace;
+    background-image:repeating-linear-gradient(0deg,rgba(42,35,24,.03) 0 2px,transparent 2px 6px);}
+  .wrap{max-width:760px;margin:0 auto;padding:26px 18px 60px}
+  h1{font-family:'Bungee',cursive;font-size:clamp(26px,6vw,46px);margin:0 0 4px;color:var(--olive);
+     text-shadow:3px 3px 0 var(--yellow);line-height:1.05}
+  .sub{font-family:'DM Serif Display',serif;color:var(--blue);font-size:15px;margin:0 0 18px}
+  .nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+  a.btn{display:inline-block;font-weight:700;font-size:13px;padding:8px 13px;border:3px solid var(--ink);
+    text-decoration:none;color:#fff;background:var(--blue);box-shadow:3px 3px 0 var(--ink)}
+  a.btn.alt{background:#fff;color:var(--ink)}
+  h2{font-family:'DM Serif Display',serif;font-size:22px;margin:28px 0 10px;padding:6px 10px;border:3px solid var(--ink);
+     display:inline-block;background:var(--yellow);box-shadow:4px 4px 0 var(--ink)}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:3px solid var(--ink)}
+  th,td{border:1px solid #b9ad95;padding:6px 8px;text-align:left}
+  th{background:var(--ink);color:#fff;font-weight:700}
+  tr:nth-child(even) td{background:#faf5ea}
+  code{background:#eadfc6;padding:1px 6px;border:1px solid #b9ad95;font-weight:700}
+  .box{background:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:14px 16px;margin:12px 0;
+    font-size:13px;line-height:1.9}
+  .box.hl{background:rgba(111,123,59,.10);border-color:var(--olive)}
+  .chain{font-size:13px;line-height:2;background:#fff;border:3px dashed var(--ink);padding:12px 14px;word-break:break-all}
+  .morse{font-family:'Space Mono',monospace;letter-spacing:4px;background:#2a2318;color:#e8b62c;padding:8px 12px;
+    display:inline-block;border:3px solid var(--ink)}
+  .foot{margin-top:34px;font-size:12px;color:#7a6f5c;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>灯塔广播站<br>攻略</h1>
+  <p class="sub">关键词 · 三道密码门 · 摩尔斯电码 · 首字母映射 · 通关链</p>
+  <div class="nav">
+    <a class="btn" href="index.html">◀ 回到游戏</a>
+  </div>
+
+  <div class="box">
+    玩法：在搜索框里输入关键词 / 数字 / 频率 / 密码。每页页脚是「编号 / 26」，数字越大越接近真相。
+    没头绪时，先在搜索框输入 <code>灯塔</code>。
+  </div>
+
+  <h2>一、关键词总表（26 页）</h2>
+  <table>
+    <tr><th>页</th><th>输入</th><th>页</th><th>输入</th></tr>
+    <tr><td>01</td><td><code>灯塔</code></td><td>14</td><td><code>潮汐</code></td></tr>
+    <tr><td>02</td><td><code>呼号</code></td><td>15</td><td><code>守夜人</code> ⛔ 密码 <code>守夜人</code></td></tr>
+    <tr><td>03</td><td><code>频率</code></td><td>16</td><td><code>值班室</code></td></tr>
+    <tr><td>04</td><td><code>值机表</code></td><td>17</td><td><code>0821</code> ⛔ 日期</td></tr>
+    <tr><td>05</td><td><code>台风</code></td><td>18</td><td><code>船队</code></td></tr>
+    <tr><td>06</td><td><code>点播</code></td><td>19</td><td><code>平安号</code></td></tr>
+    <tr><td>07</td><td><code>最后一期</code></td><td>20</td><td><code>搬迁</code></td></tr>
+    <tr><td>08</td><td><code>林素秋</code></td><td>21</td><td><code>日记</code></td></tr>
+    <tr><td>09</td><td><code>陈望</code></td><td>22</td><td><code>2009</code></td></tr>
+    <tr><td>10</td><td><code>登记簿</code> ⛔ 密码 <code>7</code></td><td>23</td><td><code>回来</code></td></tr>
+    <tr><td>11</td><td><code>87.3</code>（算出的数）</td><td>24</td><td><code>发射机</code> ⛔ 密码 <code>88.7</code></td></tr>
+    <tr><td>12</td><td><code>素秋</code>（摩尔斯解码）</td><td>25</td><td><code>留言</code></td></tr>
+    <tr><td>13</td><td><code>塔顶</code></td><td>26</td><td><code>下班</code> → 结局</td></tr>
+  </table>
+
+  <h2>二、三道密码门</h2>
+  <div class="box">
+    · 第 10 页「登记簿」→ 呼号 XS-<b>7</b> 上缺的数字 → <code>7</code><br>
+    · 第 17 页「值班室」→ 2009 年台风「白鹿」登陆日 8 月 21 日 → <code>0821</code><br>
+    · 第 24 页「发射机」→ 本站主频率 → <code>88.7</code>
+  </div>
+
+  <h2>三、算数字（第 11 页）</h2>
+  <div class="box">
+    备用频率要自己算：主频 88.7 减去 1.4 → <code>87.3</code>（搜它打开第 11 页）
+  </div>
+
+  <h2>四、摩尔斯电码（第 12 页）</h2>
+  <div class="box">
+    页面给出一段信号，按「逐字母拍发、拼成名字的拼音」解：<br>
+    <span class="morse">. . . &nbsp; . . − &nbsp; − − . − &nbsp; . . &nbsp; . . −</span><br>
+    对应 S · U · Q · I · U → <code>suqiu</code> → 关键词 <b>素秋</b>（林素秋）
+  </div>
+
+  <h2>五、首字母映射（第 15 页）</h2>
+  <div class="box">
+    「守夜人名册」里三班值守人的姓氏：沈（S）、严（Y）、阮（R）→ <b>S · Y · R</b><br>
+    拼起来 → 关键词 <b>守夜人</b>
+  </div>
+
+  <h2>六、机关（藏在字里的线索）</h2>
+  <div class="box">
+    · 第 13 页「守站须知」：四段的<b>头一个字</b>竖着读 →「<b>塔顶有信</b>」（指向塔顶）
+  </div>
+
+  <h2>七、通关链</h2>
+  <div class="chain">
+    灯塔 → 呼号 → 频率 → 值机表 → 台风 → 点播 → 最后一期 → 林素秋 → 陈望 → 登记簿[<b>7</b>]
+    → 87.3（算） → 素秋（摩尔斯） → 塔顶 → 潮汐 → 守夜人（首字母） → 值班室 → 0821
+    → 船队 → 平安号 → 搬迁 → 日记 → 2009 → 回来 → 发射机[<b>88.7</b>] → 留言
+    → <b>下班</b>（结局）
+  </div>
+
+  <div class="box hl">
+    <b>结局词</b>：陈望的留言里写着「不是关机，是<b>下班</b>——她值完了」——搜 <code>下班</code> 进入结局。
+  </div>
+
+  <p class="foot">搜「真相 / 结局 / 通关 / 解密 / 密码」会回一句误导，不给答案。</p>
+</div>
+</body>
+</html>
